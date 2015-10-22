@@ -3,6 +3,9 @@ package com.example.jit.testspeech;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +13,25 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.PrintStream;
 
 /**
  * Created by jtung on 10/22/2015.
  *
  */
 public class GridFragment  extends Fragment {
+    TextView txtSpeechInput;
+    Integer[] arr = {0,0,0,0,0,0,0,0,0};
+    static final String TAG = "taggy";
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        txtSpeechInput = (TextView) getActivity().findViewById(R.id.txtSpeechInput);
 
         // get the photo size and spacing
         // mPhotoSize = getResources().getDimensionPixelSize(R.dimen.photo_size);
@@ -54,6 +66,23 @@ public class GridFragment  extends Fragment {
             }
         });
 
+        txtSpeechInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ttt(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         return view;
     }
 
@@ -65,7 +94,7 @@ public class GridFragment  extends Fragment {
         }
 
         public int getCount() {
-            return mThumbIds.length;
+            return 9;
         }
 
         public Object getItem(int position) {
@@ -90,19 +119,58 @@ public class GridFragment  extends Fragment {
                 imageView = (ImageView) convertView;
             }
 
-            imageView.setImageResource(mThumbIds[position]);
+            if(arr[position]==1){
+                imageView.setImageResource(R.drawable.cross_btn);
+            }
+            else if(arr[position]==2){
+                imageView.setImageResource(R.drawable.circle_btn);
+            }
+            else{
+                imageView.setImageResource(R.drawable.yellow_btn);
+            }
+
             return imageView;
         }
+    }
 
+    private void ttt(CharSequence s){
+        String mymove = s.toString().toLowerCase();
+        int crossOrCircle = 0;
 
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.drawable.yellow_btn,R.drawable.yellow_btn,
-                R.drawable.yellow_btn,R.drawable.yellow_btn,
-                R.drawable.yellow_btn,R.drawable.yellow_btn,
-                R.drawable.yellow_btn,R.drawable.yellow_btn,
-                R.drawable.yellow_btn
-        };
+        if(mymove.contains("cross")){
+            crossOrCircle = 1;
+        }
+        else if(mymove.contains("circle")){
+            crossOrCircle = 2;
+        }
+
+        if(mymove.contains("top left")){
+            arr[0] = crossOrCircle;
+        }
+        else if(mymove.contains("top center")){
+            arr[1] = crossOrCircle;
+        }
+        else if(mymove.contains("top right")){
+            arr[2] = crossOrCircle;
+        }
+        else if(mymove.contains("middle left")){
+            arr[3] = crossOrCircle;
+        }
+        else if(mymove.contains("middle center")){
+            arr[4] = crossOrCircle;
+        }
+        else if(mymove.contains("middle right")){
+            arr[5] = crossOrCircle;
+        }
+        else if(mymove.contains("bottom left")){
+            arr[6] = crossOrCircle;
+        }
+        else if(mymove.contains("bottom center")){
+            arr[7] = crossOrCircle;
+        }
+        else if(mymove.contains("bottom right")){
+            arr[8] = crossOrCircle;
+        }
     }
 
 }
