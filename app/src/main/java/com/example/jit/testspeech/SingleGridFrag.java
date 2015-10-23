@@ -46,7 +46,7 @@ public class SingleGridFrag extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                if (gameEnd==true){
+                if (gameEnd){
                     Toast.makeText(getActivity(), "You Can't Click There!", Toast.LENGTH_SHORT).show();
                 }
                 else {

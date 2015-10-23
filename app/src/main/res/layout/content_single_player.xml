@@ -7,10 +7,24 @@
     tools:showIn="@layout/activity_single_player"
     tools:context="com.example.jit.testspeech.SinglePlayer">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#c3c3c3"
+        android:id="@+id/singlePText"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/singlep_frag_container" />
+        android:id="@+id/singlep_frag_container"
+        android:layout_below="@+id/singlePText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mic"
+        android:id="@+id/singlePMicBtn"
+        android:layout_below="@+id/singlep_frag_container"/>
 
 
 </RelativeLayout>
