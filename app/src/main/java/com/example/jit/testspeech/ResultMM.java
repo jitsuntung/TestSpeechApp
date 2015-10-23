@@ -2,6 +2,7 @@ package com.example.jit.testspeech;
 
 /**
  * Created by jtung on 10/22/2015.
+ *
  */
 public class ResultMM {
     String[] matrix;

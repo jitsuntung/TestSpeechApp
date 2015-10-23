@@ -26,10 +26,12 @@ public class SingleGridFrag extends Fragment {
     int[] arr = {0,0,0,0,0,0,0,0,0};
     final Controller controller = new Controller();
     int i;
+    boolean gameEnd;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         // get the photo size and spacing
         // mPhotoSize = getResources().getDimensionPixelSize(R.dimen.photo_size);
@@ -44,34 +46,38 @@ public class SingleGridFrag extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                if(arr[position]>0){
+                if (gameEnd==true){
                     Toast.makeText(getActivity(), "You Can't Click There!", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    arr[position] = 1;
-                    i = controller.makeMove(position);
-                    Log.v(TAG, Integer.toString(i));
+                else {
 
-                    if(i<0 || i>8){
-                        if(i>8){
-                            i=i-20;
-                            arr[i]=2;
-                            Toast.makeText(getActivity(), "You Lose!", Toast.LENGTH_SHORT).show();
+                    if (arr[position] > 0) {
+                        Toast.makeText(getActivity(), "You Can't Click There!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        arr[position] = 1;
+                        i = controller.makeMove(position);
+                        Log.v(TAG, Integer.toString(i));
+
+                        if (i < 0 || i > 8) {
+                            if (i > 8) {
+                                i = i - 20;
+                                arr[i] = 2;
+                                Toast.makeText(getActivity(), "You Lose!", Toast.LENGTH_SHORT).show();
+                                gameEnd = true;
+                            } else if (i == -2) {
+                                Toast.makeText(getActivity(), "It's a Draw!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            arr[i] = 2;
                         }
-                        else if(i==-2){
-                            Toast.makeText(getActivity(), "It's a Draw!", Toast.LENGTH_SHORT).show();
-                        }
 
+                        Fragment currentFragment = getFragmentManager().findFragmentByTag("SINGLEPEE");
+                        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                        fragTransaction.detach(currentFragment);
+                        fragTransaction.attach(currentFragment);
+                        fragTransaction.commit();
                     }
-                    else{
-                        arr[i] = 2;
-                    }
-
-                    Fragment currentFragment = getFragmentManager().findFragmentByTag("SINGLEPEE");
-                    FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                    fragTransaction.detach(currentFragment);
-                    fragTransaction.attach(currentFragment);
-                    fragTransaction.commit();
                 }
 
 
