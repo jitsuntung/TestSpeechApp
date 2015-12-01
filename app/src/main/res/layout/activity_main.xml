@@ -31,14 +31,26 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
-        android:layout_marginBottom="15dp"
         android:textColor="#603c3c"
         android:textSize="26sp"
         android:textStyle="normal"
         android:text="cross top right"/>
 
-    <FrameLayout
+    <TextView
         android:layout_below="@+id/txtSpeechInput"
+        android:id="@+id/clicktoconfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textColor="#603c3c"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:text="Click To Confirm"/>
+
+
+    <FrameLayout
+        android:layout_below="@+id/clicktoconfirm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_container1"
@@ -58,6 +70,6 @@
         android:scaleType="fitXY"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="70dp"/>
+        android:paddingBottom="65dp"/>
 
 </RelativeLayout>
