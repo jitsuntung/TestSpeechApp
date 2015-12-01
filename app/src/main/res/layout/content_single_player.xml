@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_single_player"
-    tools:context="com.example.jit.testspeech.SinglePlayer">
+    tools:context="com.example.jit.testspeech.SinglePlayer"
+    android:background="@drawable/bg_img"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/singlep_frag_container"
-        android:layout_below="@+id/singlePText" />
+        android:layout_below="@+id/singlePText"
+        android:background="@drawable/grid"
+       />
 
     <Button
         android:layout_width="wrap_content"
