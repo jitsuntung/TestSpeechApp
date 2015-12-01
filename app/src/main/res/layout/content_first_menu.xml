@@ -10,17 +10,29 @@
     tools:showIn="@layout/activity_first_menu" tools:context="com.example.jit.testspeech.firstMenu"
     android:background="@drawable/bg_img">
 
-    <Button
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:background="@drawable/header"
+        android:layout_marginTop="35dp"/>
+
+    <ImageView
         android:id="@+id/singlePBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Single Player"
-        android:onClick="toSingle"/>
-    <Button
+        android:layout_width="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="75dp"
+        android:onClick="toSingle"
+        android:background="@drawable/sp"
+        android:layout_below="@id/header"
+        android:layout_marginTop="35dp"/>
+    <ImageView
         android:id="@+id/multiPBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="75dp"
         android:text="Multi Player"
+        android:background="@drawable/mp"
         android:onClick="toMulti"
         android:layout_below="@+id/singlePBtn"/>
 
