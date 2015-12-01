@@ -24,7 +24,7 @@ import java.io.PrintStream;
  */
 public class GridFragment  extends Fragment {
     TextView txtSpeechInput;
-    Integer[] arr = {0,0,0,0,0,0,0,0,0};
+    Integer[] arr = {2,2,2,2,2,2,2,2,2};
     static final String TAG = "taggy";
 
     @Override

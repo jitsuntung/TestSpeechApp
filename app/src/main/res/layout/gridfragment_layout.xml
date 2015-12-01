@@ -19,6 +19,5 @@
             android:horizontalSpacing="2dp"
             android:stretchMode="columnWidth"
             android:gravity="center"
-            android:listSelector="#d13339"
             />
     </LinearLayout>

@@ -10,25 +10,40 @@
     >
 
     <TextView
+        android:id="@+id/singlePText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#c3c3c3"
-        android:id="@+id/singlePText"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="#603c3c"
+        android:textSize="26sp"
+        android:textStyle="normal"
+        android:text="cross top right"/>
 
     <FrameLayout
+        android:layout_below="@+id/singlePText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/singlep_frag_container"
-        android:layout_below="@+id/singlePText"
+        android:layout_above="@+id/btnSpeak"
         android:background="@drawable/grid"
-       />
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="20dp"/>
 
-    <Button
+    <ImageButton
+        android:id="@+id/btnSpeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mic"
-        android:id="@+id/singlePMicBtn"
-        android:layout_below="@+id/singlep_frag_container"/>
-
+        android:background="@null"
+        android:src="@drawable/ponecast"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="70dp"/>
 
 </RelativeLayout>
