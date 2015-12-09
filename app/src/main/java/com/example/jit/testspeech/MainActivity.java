@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
-        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        btnSpeak = (ImageButton) findViewById(R.id.whocast);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 fragTransaction.commit();
             }
         });
-
-
 }
 
     /**

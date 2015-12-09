@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:textColor="#603c3c"
-        android:textSize="26sp"
+        android:textSize="56sp"
         android:textStyle="normal"
         android:text=""/>
 
@@ -27,9 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:textColor="#603c3c"
-        android:textSize="13sp"
+        android:textSize="33sp"
         android:textStyle="normal"
         android:text=""/>
 
@@ -40,10 +40,10 @@
         android:id="@+id/singlep_frag_container"
         android:layout_above="@+id/btnSpeak"
         android:background="@drawable/grid"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginStart="55dp"
         android:layout_marginBottom="20dp"/>
 
     <ImageView
@@ -67,7 +67,7 @@
         android:scaleType="fitXY"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="50dp"/>
+        android:paddingBottom="90dp"/>
 
     <ImageButton
         android:id="@+id/btnReplay"
@@ -77,7 +77,6 @@
         android:scaleType="fitXY"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="40dp" />
-
+        android:paddingBottom="90dp" />
 
 </RelativeLayout>

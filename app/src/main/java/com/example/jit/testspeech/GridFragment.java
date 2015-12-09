@@ -1,17 +1,28 @@
 package com.example.jit.testspeech;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,14 +35,22 @@ import java.io.PrintStream;
  */
 public class GridFragment  extends Fragment {
     TextView txtSpeechInput;
-    Integer[] arr = {2,2,2,2,2,2,2,2,2};
+    Integer[] arr = {0,0,0,0,0,0,0,0,0};
+    int[] filledIn = {0,0,0,0,0,0,0,0,0};
     static final String TAG = "taggy";
+    int pone,ptwo;
+    int turn = 1;
+    Boolean started = false;
+    Boolean gameOver = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         txtSpeechInput = (TextView) getActivity().findViewById(R.id.txtSpeechInput);
+        ImageButton whocast = (ImageButton) getActivity().findViewById(R.id.whocast);
+
+
 
         // get the photo size and spacing
         // mPhotoSize = getResources().getDimensionPixelSize(R.dimen.photo_size);
@@ -43,45 +62,133 @@ public class GridFragment  extends Fragment {
         GridView gridview = (GridView) view.findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(view.getContext()));
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
+
+        final Animation animFadein;
+        animFadein = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.fade_in);
+
+        final Animation animFadeOut;
+        animFadeOut = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.fade_out);
+
+        final Animation animFadeAway;
+        animFadeAway = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.fade_away);
 
 
-                /*This following code replaces the fragment, not what we want to do.
-                But put code here that you want to happen on selection of an item in the grid
-
-                FragmentTwo newFragment = new FragmentTwo();
-
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                transaction.replace(R.id.fragment_place1, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();*/
-
+        if( (arr[0] == 1 && arr[1] == 1 && arr[2] == 1) || (arr[3]== 1 && arr[4]== 1 && arr[5]== 1)||
+                (arr[6]== 1 && arr[7]== 1 && arr[8]== 1) || (arr[0]== 1 && arr[3]== 1 && arr[6]== 1) ||
+                (arr[1]== 1 && arr[4]== 1 && arr[7]== 1) || (arr[2]== 1 && arr[5]== 1 && arr[8]== 1)  ||
+                (arr[0]== 1 && arr[4]== 1 && arr[8]== 1) || (arr[2]== 1 && arr[4]== 1 && arr[6]== 1)
+                ){
+            if (pone == 1){
+                FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.fragment_container1);
+                grid.startAnimation(animFadeOut);
+                ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                winlose.startAnimation(animFadein);
+                winlose.setBackgroundResource(R.drawable.ponewins);
             }
-        });
-
-        txtSpeechInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            else if(ptwo == 1){
+                FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.fragment_container1);
+                grid.startAnimation(animFadeOut);
+                ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                winlose.startAnimation(animFadein);
+                winlose.setBackgroundResource(R.drawable.ptwowins);
             }
+            gameOver = true;
+        }
+        else if((arr[0] == 2 && arr[1] == 2 && arr[2] == 2) || (arr[3]== 2 && arr[4]== 2 && arr[5]== 2)||
+                    (arr[6]== 2 && arr[7]== 2 && arr[8]== 2) || (arr[0]== 2 && arr[3]== 2 && arr[6]== 2) ||
+                    (arr[1]== 2 && arr[4]== 2 && arr[7]== 2) || (arr[2]== 2 && arr[5]== 2 && arr[8]== 2)  ||
+                    (arr[0]== 2 && arr[4]== 2 && arr[8]== 2) || (arr[2]== 2 && arr[4]== 2 && arr[6]== 2))
+        {
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ttt(s);
+            if (pone == 2){
+                FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.fragment_container1);
+                grid.startAnimation(animFadeOut);
+                ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                winlose.startAnimation(animFadein);
+                winlose.setBackgroundResource(R.drawable.ponewins);
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            else if(ptwo == 2){
+                FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.fragment_container1);
+                grid.startAnimation(animFadeOut);
+                ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                winlose.startAnimation(animFadein);
+                winlose.setBackgroundResource(R.drawable.ptwowins);
             }
-        });
+            gameOver = true;
+        }
+        else if((filledIn[0] == 1 && filledIn[1] == 1 && filledIn[2] == 1 && filledIn[3] == 1 && filledIn[4] == 1
+                && filledIn[5] == 1 && filledIn[6] == 1 && filledIn[7] == 1 && filledIn[8] == 1)){
+
+            FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.fragment_container1);
+            grid.startAnimation(animFadeOut);
+            ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+            winlose.startAnimation(animFadein);
+            winlose.setBackgroundResource(R.drawable.draw);
+            gameOver = true;
+        }
+
+
+        if (turn == 1){
+            whocast.startAnimation(animFadein);
+            whocast.setImageResource(R.drawable.ponecast);
+        }
+        else if (turn == 2) {
+            whocast.startAnimation(animFadein);
+            whocast.setImageResource(R.drawable.ptwocast);
+        }
+
+        if(gameOver){
+            whocast.setVisibility(View.INVISIBLE);
+            whocast.startAnimation(animFadeAway);
+            ImageButton replayBtn = (ImageButton) getActivity().findViewById(R.id.replayBtn);
+            replayBtn.setImageResource(R.drawable.playagain);
+            replayBtn.setAnimation(animFadein);
+
+            replayBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gameOver = false;
+                    turn = 1;
+                    started = false;
+                    for(int i = 0; i<arr.length; i++){
+                        arr[i] = 0;
+                    }
+                    for(int i = 0; i<filledIn.length; i++){
+                        filledIn[i] = 0;
+                    }
+
+                    Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGGYTAGGY");
+                    FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                    fragTransaction.remove(currentFragment);
+                    fragTransaction.commit();
+
+                    getActivity().recreate();
+                }
+            });
+        }
+
+
+        else if(!gameOver){
+            txtSpeechInput.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    ttt(s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
 
         return view;
     }
@@ -108,10 +215,26 @@ public class GridFragment  extends Fragment {
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView;
+
+            int width = 0;
+            int height = 0;
+            WindowManager w = getActivity().getWindowManager();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+                Point size = new Point();
+                w.getDefaultDisplay().getSize(size);
+                width = size.x;
+                height = size.y;
+            } else {
+                Display d = w.getDefaultDisplay();
+                width = d.getWidth();
+                height = d.getHeight();
+            }
+
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
                 imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(251, 251));
+                imageView.setLayoutParams(new GridView.LayoutParams(width/4, width/4));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 //imageView.setBackgroundResource(R.drawable.imageview_border);
 
@@ -136,41 +259,150 @@ public class GridFragment  extends Fragment {
     private void ttt(CharSequence s){
         String mymove = s.toString().toLowerCase();
         int crossOrCircle = 0;
+        int pos;
 
-        if(mymove.contains("cross")){
-            crossOrCircle = 1;
-        }
-        else if(mymove.contains("circle")){
-            crossOrCircle = 2;
+        if(!started){
+            if(mymove.contains("cross")){
+                crossOrCircle = 1;
+                pone = 1;
+                ptwo = 2;
+                started = true;
+            }
+            else if(mymove.contains("circle")){
+                crossOrCircle = 2;
+                pone = 2;
+                ptwo = 1;
+                started = true;
+            }
         }
 
-        if(mymove.contains("top left")){
-            arr[0] = crossOrCircle;
+        if(started){
+            if(turn == 1){
+               crossOrCircle = pone;
+            }
+            else if(turn ==2){
+               crossOrCircle = ptwo;
+            }
         }
-        else if(mymove.contains("top center")){
-            arr[1] = crossOrCircle;
+
+        if (started){
+            if(mymove.contains("top left")){
+                if(filledIn[0]!=1){
+                    arr[0] = crossOrCircle;
+                    pos = 0;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("top center")){
+                if(filledIn[1]!=1) {
+                    arr[1] = crossOrCircle;
+                    pos = 1;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("top right")){
+                if(filledIn[2]!=1) {
+                    arr[2] = crossOrCircle;
+                    pos = 2;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("middle left")){
+                if(filledIn[3]!=1) {
+                    arr[3] = crossOrCircle;
+                    pos = 3;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("middle center")){
+                if(filledIn[4]!=1) {
+                    arr[4] = crossOrCircle;
+                    pos = 4;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("middle right")){
+                arr[5] = crossOrCircle;
+                pos = 5;
+                filledIn[pos] = 1;
+                if(turn == 1){
+                    turn = 2;
+                }
+                else if(turn ==2){
+                    turn = 1;
+                }
+            }
+            else if(mymove.contains("bottom left")){
+                if(filledIn[6]!=1) {
+                    arr[6] = crossOrCircle;
+                    pos = 6;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("bottom center")){
+                if(filledIn[7]!=1) {
+                    arr[7] = crossOrCircle;
+                    pos = 7;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
+            else if(mymove.contains("bottom right")){
+                if(filledIn[8]!=1) {
+                    arr[8] = crossOrCircle;
+                    pos = 8;
+                    filledIn[pos] = 1;
+                    if(turn == 1){
+                        turn = 2;
+                    }
+                    else if(turn ==2){
+                        turn = 1;
+                    }
+                }
+            }
         }
-        else if(mymove.contains("top right")){
-            arr[2] = crossOrCircle;
-        }
-        else if(mymove.contains("middle left")){
-            arr[3] = crossOrCircle;
-        }
-        else if(mymove.contains("middle center")){
-            arr[4] = crossOrCircle;
-        }
-        else if(mymove.contains("middle right")){
-            arr[5] = crossOrCircle;
-        }
-        else if(mymove.contains("bottom left")){
-            arr[6] = crossOrCircle;
-        }
-        else if(mymove.contains("bottom center")){
-            arr[7] = crossOrCircle;
-        }
-        else if(mymove.contains("bottom right")){
-            arr[8] = crossOrCircle;
-        }
+
     }
 
 }
