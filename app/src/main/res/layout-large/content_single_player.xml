@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="65dp"
         android:textColor="#603c3c"
-        android:textSize="56sp"
+        android:textSize="46sp"
         android:textStyle="normal"
         android:text=""/>
 

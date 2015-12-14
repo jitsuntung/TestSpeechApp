@@ -73,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGGYTAGGY");
+                /*Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGGYTAGGY");
                 FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
                 fragTransaction.detach(currentFragment);
                 fragTransaction.attach(currentFragment);
-                fragTransaction.commit();
+                fragTransaction.commit();*/
             }
         });
 }

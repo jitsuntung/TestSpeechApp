@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -47,7 +48,9 @@ public class GridFragment  extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RightyMarks.ttf");
         txtSpeechInput = (TextView) getActivity().findViewById(R.id.txtSpeechInput);
+        txtSpeechInput.setTypeface(custom_font);
         ImageButton whocast = (ImageButton) getActivity().findViewById(R.id.whocast);
 
 
@@ -160,16 +163,14 @@ public class GridFragment  extends Fragment {
                         filledIn[i] = 0;
                     }
 
-                    Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGGYTAGGY");
-                    FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                    fragTransaction.remove(currentFragment);
-                    fragTransaction.commit();
+                    txtSpeechInput.setText("");
+
 
                     getActivity().recreate();
+
                 }
             });
         }
-
 
         else if(!gameOver){
             txtSpeechInput.addTextChangedListener(new TextWatcher() {
@@ -185,7 +186,11 @@ public class GridFragment  extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-
+                    Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGGYTAGGY");
+                    FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                    fragTransaction.detach(currentFragment);
+                    fragTransaction.attach(currentFragment);
+                    fragTransaction.commit();
                 }
             });
         }
@@ -352,14 +357,15 @@ public class GridFragment  extends Fragment {
                 }
             }
             else if(mymove.contains("middle right")){
-                arr[5] = crossOrCircle;
-                pos = 5;
-                filledIn[pos] = 1;
-                if(turn == 1){
-                    turn = 2;
-                }
-                else if(turn ==2){
-                    turn = 1;
+                if(filledIn[5]!=1) {
+                    arr[5] = crossOrCircle;
+                    pos = 5;
+                    filledIn[pos] = 1;
+                    if (turn == 1) {
+                        turn = 2;
+                    } else if (turn == 2) {
+                        turn = 1;
+                    }
                 }
             }
             else if(mymove.contains("bottom left")){

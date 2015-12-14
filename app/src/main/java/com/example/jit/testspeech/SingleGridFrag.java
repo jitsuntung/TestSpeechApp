@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,13 +45,16 @@ public class SingleGridFrag extends Fragment {
     int[] spaceFilled = {0,0,0,0,0,0,0,0,0};
     final Controller controller = new Controller();
     int i;
-    boolean gameEnd, whee;
+    boolean gameEnd;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
+        Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RightyMarks.ttf");
         txtSpeechInput = (TextView) getActivity().findViewById(R.id.singlePText);
+        txtSpeechInput.setTypeface(custom_font);
+
 
         //Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.gridfragment_layout, container, false);
@@ -98,26 +102,12 @@ public class SingleGridFrag extends Fragment {
                                 animFadeOut = AnimationUtils.loadAnimation(getActivity(),
                                         R.anim.fade_out);
 
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.singlep_frag_container);
-                                        grid.startAnimation(animFadeOut);
-
-                                    }
-                                }, 1000);
-
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
-                                        winlose.startAnimation(animFadein);
-                                        winlose.setBackgroundResource(R.drawable.lose);
-                                    }
-                                }, 2000);
+                                FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.singlep_frag_container);
+                                grid.startAnimation(animFadeOut);
 
                                 final ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                                winlose.startAnimation(animFadein);
+                                winlose.setBackgroundResource(R.drawable.lose);
                                 final ImageButton p1cast = (ImageButton) getActivity().findViewById(R.id.btnSpeak);
                                 p1cast.setVisibility(View.INVISIBLE);
                                 final ImageButton replay = (ImageButton) getActivity().findViewById(R.id.btnReplay);
@@ -148,10 +138,46 @@ public class SingleGridFrag extends Fragment {
 
 
                             } else if (i == -2) {
+                                Animation animFadein;
+                                animFadein = AnimationUtils.loadAnimation(getActivity(),
+                                        R.anim.fade_in);
+
+                                Animation animFadeOut;
+                                animFadeOut = AnimationUtils.loadAnimation(getActivity(),
+                                        R.anim.fade_out);
                                 FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.singlep_frag_container);
-                                grid.setAlpha(0.2f);
-                                ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                                grid.startAnimation(animFadeOut);
+                                final ImageView winlose = (ImageView) getActivity().findViewById(R.id.winlosemsg);
+                                winlose.startAnimation(animFadein);
                                 winlose.setBackgroundResource(R.drawable.draw);
+                                final ImageButton p1cast = (ImageButton) getActivity().findViewById(R.id.btnSpeak);
+                                p1cast.setVisibility(View.INVISIBLE);
+                                final ImageButton replay = (ImageButton) getActivity().findViewById(R.id.btnReplay);
+                                replay.startAnimation(animFadein);
+                                replay.setImageResource(R.drawable.playagain);
+
+                                replay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        FrameLayout grid = (FrameLayout) getActivity().findViewById(R.id.singlep_frag_container);
+                                        grid.setAlpha(1);
+                                        gameEnd = false;
+                                        winlose.setBackgroundResource(0);
+                                        for (int j = 0; j < arr.length; j++) {
+                                            arr[j] = 0;
+                                        }
+
+                                        for (int j = 0; j < spaceFilled.length; j++) {
+                                            spaceFilled[j] = 0;
+                                        }
+
+                                        p1cast.setVisibility(View.VISIBLE);
+                                        replay.setVisibility(View.GONE);
+
+                                        getActivity().recreate();
+                                    }
+                                });
+
                             }
 
                         } else {
